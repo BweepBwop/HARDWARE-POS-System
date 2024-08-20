@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
-// Define a struct to hold product information
 typedef struct {
     char name[20];
     float price;
 } Product;
 
-// Define a struct to hold the receipt information
 typedef struct {
     char date[10];
     char time[10];
@@ -16,14 +14,12 @@ typedef struct {
     Product items[10]; // max 10 items per receipt
 } Receipt;
 
-// Define a struct to hold category information
 typedef struct {
     char name[20];
     Product products[10]; // max 10 products per category
     int num_products;
 } Category;
 
-// Function to display the login menu
 void display_login_menu() {
     printf("Point of Sale System\n");
     printf("---------------------\n");
@@ -58,7 +54,6 @@ void display_main_menu() {
     printf("Enter your choice: ");
 }
 
-// Function to display a category
 void display_category(Category category) {
     printf("%s:\n", category.name);
     for (int i = 0; i < category.num_products; i++) {
