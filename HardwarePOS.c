@@ -23,15 +23,13 @@ typedef struct {
 void display_login_menu() {
     printf("Point of Sale System\n");
     printf("---------------------\n");
-    printf("1. Login\n");
-    printf("2. Exit\n");
-    printf("Enter your choice: ");
+    printf("Enter password: ");
 }
 
 // Function to handle user login
 void login(char *password) {
     char input[20];
-    printf("Enter password: ");
+    display_login_menu();
     fgets(input, 20, stdin);
     input[strcspn(input, "\n")] = 0;
     if (strcmp(input, password) == 0) {
@@ -117,14 +115,14 @@ int main() {
     strcpy(lumber.products[3].name, "2x10");
     lumber.products[3].price = 8.99;
 
-        Category tiles;
+    Category tiles;
     strcpy(tiles.name, "Tiles");
     tiles.num_products = 4;
     strcpy(tiles.products[0].name, "Ceramic Tile");
     tiles.products[0].price = 1.99;
     strcpy(tiles.products[1].name, "Porcelain Tile");
     tiles.products[1].price = 2.99;
-    strcpy(tiles.products[2].name, "Marble Tile");
+        strcpy(tiles.products[2].name, "Marble Tile");
     tiles.products[2].price = 4.99;
     strcpy(tiles.products[3].name, "Granite Tile");
     tiles.products[3].price = 5.99;
@@ -141,99 +139,92 @@ int main() {
     strcpy(constructionMaterials.products[3].name, "Bricks");
     constructionMaterials.products[3].price = 5.99;
 
-    display_login_menu();
+    login(password);
     int choice;
+    display_main_menu();
     scanf("%d", &choice);
-    if (choice == 1) {
-        login(password);
-        display_main_menu();
-        while (1) {
-            scanf("%d", &choice);
-            switch (choice) {
-                case 1:
-                    display_category(tools);
-                    int toolChoice;
-                    scanf("%d", &toolChoice);
-                    add_item_to_cart(&receipt, tools.products[toolChoice - 1]);
-                    printf("[1] - Add another item\n");
-                    printf("[2] - Checkout\n");
-                    int nextChoice;
-                    scanf("%d", &nextChoice);
-                    if (nextChoice == 1) {
-                        continue;
-                    } else if (nextChoice == 2) {
-                        break;
-                    } else {
-                        printf("Invalid choice. Try again.\n");
-                    }
+    while (1) {
+        switch (choice) {
+            case 1:
+                display_category(tools);
+                int toolChoice;
+                scanf("%d", &toolChoice);
+                add_item_to_cart(&receipt, tools.products[toolChoice - 1]);
+                printf("[1] - Add another item\n");
+                printf("[2] - Checkout\n");
+                int nextChoice;
+                scanf("%d", &nextChoice);
+                if (nextChoice == 1) {
+                    continue;
+                } else if (nextChoice == 2) {
                     break;
-                case 2:
-                    display_category(lumber);
-                    int lumberChoice;
-                    scanf("%d", &lumberChoice);
-                    add_item_to_cart(&receipt, lumber.products[lumberChoice - 1]);
-                    printf("[1] - Add another item\n");
-                    printf("[2] - Checkout\n");
-                    scanf("%d", &nextChoice);
-                    if (nextChoice == 1) {
-                        continue;
-                    } else if (nextChoice == 2) {
-                        break;
-                    } else {
-                        printf("Invalid choice. Try again.\n");
-                    }
-                    break;
-                case 3:
-                    display_category(tiles);
-                    int tileChoice;
-                    scanf("%d", &tileChoice);
-                    add_item_to_cart(&receipt, tiles.products[tileChoice - 1]);
-                    printf("[1] - Add another item\n");
-                    printf("[2] - Checkout\n");
-                    scanf("%d", &nextChoice);
-                    if (nextChoice == 1) {
-                        continue;
-                    } else if (nextChoice == 2) {
-                        break;
-                    } else {
-                        printf("Invalid choice. Try again.\n");
-                    }
-                    break;
-                case 4:
-                    display_category(constructionMaterials);
-                    int constructionMaterialsChoice;
-                    scanf("%d", &constructionMaterialsChoice);
-                    add_item_to_cart(&receipt, constructionMaterials.products[constructionMaterialsChoice - 1]);
-                    printf("[1] - Add another item\n");
-                    printf("[2] - Checkout\n");
-                    scanf("%d", &nextChoice);
-                    if (nextChoice == 1) {
-                        continue;
-                    } else if (nextChoice == 2) {
-                        break;
-                    } else {
-                        printf("Invalid choice. Try again.\n");
-                    }
-                    break;
-                case 5:
-                    view_cart(&receipt);
-                    break;
-                case 6:
-                    checkout(&receipt);
-                    float payment;
-                    printf("Enter payment amount: $");
-                    scanf("%f", &payment);
-                    while (payment < receipt.total) {
-                        printf("Please enter the correct amount: $");
-                        scanf("%f", &payment);
-                    }
-                    printf("Change: $%.2f\n", payment - receipt.total);
-                    return 0;
-                default:
+                } else {
                     printf("Invalid choice. Try again.\n");
-            }
+                }
+                break;
+            case 2:
+                display_category(lumber);
+                int lumberChoice;
+                scanf("%d", &lumberChoice);
+                add_item_to_cart(&receipt, lumber.products[lumberChoice - 1]);
+                printf("[1] - Add another item\n");
+                printf("[2] - Checkout\n");
+                scanf("%d", &nextChoice);
+                if (nextChoice == 1) {
+                    continue;
+                } else if (nextChoice == 2) {
+                    break;
+                } else {
+                    printf("Invalid choice. Try again.\n");
+                }
+                break;
+            case 3:
+                display_category(tiles);
+                int tileChoice;
+                scanf("%d", &tileChoice);
+                add_item_to_cart(&receipt, tiles.products[tileChoice - 1]);
+                printf("[1] - Add another item\n");
+                printf("[2] - Checkout\n");
+                scanf("%d", &nextChoice);
+                if (nextChoice == 1) {
+                    continue;
+                } else if (nextChoice == 2) {
+                    break;
+                } else {
+                    printf("Invalid choice. Try again.\n");
+                }
+                break;
+            case 4:
+                display_category(constructionMaterials);
+                int constructionMaterialsChoice;
+                scanf("%d", &constructionMaterialsChoice);
+                add_item_to_cart(&receipt, constructionMaterials.products[constructionMaterialsChoice - 1]);
+                printf("[1] - Add another item\n");
+                printf("[2] - Checkout\n");
+                scanf("%d", &nextChoice);
+                if (nextChoice == 1) {
+                    continue;
+                } else if (nextChoice == 2) {
+                    break;
+                } else {
+                    printf("Invalid choice. Try again.\n");
+                }
+                break;
+            case 5:
+                view_cart(&receipt);
+                break;
+            default:
+                printf("Invalid choice. Try again.\n");
         }
-    } else {
-        return 0;
     }
+    checkout(&receipt);
+    float payment;
+    printf("Enter payment amount: $");
+    scanf("%f", &payment);
+    while (payment < receipt.total) {
+        printf("Please enter the correct amount: $");
+        scanf("%f", &payment);
+    }
+    printf("Change: $%.2f\n", payment - receipt.total);
+    return 0;
 }
